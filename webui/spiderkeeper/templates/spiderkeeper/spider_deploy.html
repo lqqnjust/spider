@@ -1,10 +1,9 @@
-{% extends "base.html" %}
+{% extends "spiderkeeper/base.html" %}
 {% block content_header %}
 <h1>Deploy</h1>
 {% endblock %}
 {% block content_body %}
 
-{% with messages = get_flashed_messages() %}
 {% if messages %}
 <div class="callout callout-success">
     <ul>
@@ -14,7 +13,7 @@
     </ul>
 </div>
 {% endif %}
-{% endwith %}
+
 
 <div class="box">
     <form action="/project/{{ project.id }}/spider/upload" method="post" enctype=multipart/form-data>

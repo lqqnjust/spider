@@ -84,20 +84,20 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="header">JOBS</li>
-                <li><a href="/project/{{ project.id }}/job/dashboard"><i
+                <li><a href="/project/{{ project.id }}/job/dashboard/"><i
                         class="fa fa-dashboard text-blue"></i>
                     <span>Dashboard</span></a></li>
-                <li><a href="/project/{{ project.id }}/job/periodic"><i class="fa fa-tasks text-green"></i>
+                <li><a href="/project/{{ project.id }}/job/periodic/"><i class="fa fa-tasks text-green"></i>
                     <span>Periodic Jobs</span></a></li>
                 <li class="header">SPIDERS</li>
-                <li><a href="/project/{{ project.id }}/spider/dashboard"><i class="fa fa-flask text-red"></i>
+                <li><a href="/project/{{ project.id }}/spider/dashboard/"><i class="fa fa-flask text-red"></i>
                     <span>Dashboard</span></a>
                 </li>
-                <li><a href="/project/{{ project.id }}/spider/deploy"><i class="fa fa-server text-orange"></i>
+                <li><a href="/project/{{ project.id }}/spider/deploy/"><i class="fa fa-server text-orange"></i>
                     <span>Deploy</span></a></li>
                 <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Settings</span></a></li>-->
                 <li class="header">PROJECT</li>
-                <li><a href="/project/{{ project.id }}/project/stats"><i class="fa  fa-area-chart text-gray"></i> <span>Running Stats</span></a>
+                <li><a href="/project/{{ project.id }}/project/stats/"><i class="fa  fa-area-chart text-gray"></i> <span>Running Stats</span></a>
                 </li>
                 <!--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Members</span></a></li>-->
                 <li><a href="/project/manage"><i class="fa fa-gears text-red"></i> <span>Manage</span></a></li>
@@ -136,7 +136,8 @@
     <div class="modal fade" role="dialog" id="project-create-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/project/create" method="post">
+                <form action="/project/create/" method="post">
+                    {%csrf_token%}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
