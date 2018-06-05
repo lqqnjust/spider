@@ -8,7 +8,13 @@
 import scrapy
 
 
-class DoubanspiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+from scrapy_djangoitem import DjangoItem
+from douban.models import Topic, Image
+
+
+class TopicItem(DjangoItem):
+	django_model = Topic
+
+
+class ImageItem(DjangoItem):
+	django_model = Image

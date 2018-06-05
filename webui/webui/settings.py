@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'spiderkeeper.apps.SpiderkeeperConfig'
+    'spiderkeeper.apps.SpiderkeeperConfig',
+    'douban.apps.DoubanConfig'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,7 @@ STATIC_URL = '/static/'
 
 # spider setting
 SCRAPYD_URL = "http://localhost:6800"
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
