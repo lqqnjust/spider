@@ -1,0 +1,38 @@
+{% extends "spidermanage/base.html" %}
+
+
+{% block content %}
+<div><button class="layui-btn layui-btn-normal">新增</button ></div>
+
+<table class="layui-table" lay-even lay-skin="nob">
+    <thead>
+        <tr>
+          <th>项目名</th>
+          <th>版本号</th>
+          <th>创建时间</th>
+          <th>是否已部署</th>
+          <th>操作</th>
+        </tr> 
+    </thead>
+
+    <tbody>
+        {% for project in projects %}
+        <tr>
+          <td>{{ project.name }}</td>
+          <td>{{ project.version }}</td>
+          <td>{{ project.createtime }}</td>
+          <td>{{ project.deployed }}</td>
+          <td>
+            <button data-projectid='{{project.id}}' class="layui-btn layui-btn-normal deploy">部署</button >
+            <button data-projectid='{{project.id}}' class="layui-btn layui-btn-danger delete">删除</button >
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{%endblock%}
+
+
+{% block script %}
+
+{% endblock %} 

@@ -91,15 +91,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'webui.settings'
-WEB_DIR=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print(WEB_DIR)
-import sys
-sys.path.append(os.path.join(WEB_DIR,'webui'))
 
-
-import django
-django.setup()
-
-IMAGES_STORE = os.path.join(WEB_DIR,'webui','media','doubangroup')
+IMAGES_STORE = r'E:\work\spider\webui\media\doubangroup'

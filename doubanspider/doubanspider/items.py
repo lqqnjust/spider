@@ -8,8 +8,6 @@
 import scrapy
 
 
-from scrapy_djangoitem import DjangoItem
-from douban.models import Topic, Image
 
 
 class TopicItem(DjangoItem):
