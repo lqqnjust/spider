@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 
 APPEND_SLASH=False
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT =r'D:\workspace\pythonwork\scrapywork\works\spider\media'
 MEDIA_URL = '/media/'
 
 

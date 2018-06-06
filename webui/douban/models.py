@@ -40,7 +40,7 @@ class Image(models.Model):
 
     def image(self):
         return format_html(
-            '<img width=40 height=40 src="/media/doubangroup/{}"/>',
+            '<img width=100 height=100 src="/media/doubanspider/{}"/>',
             self.image_url.split("/")[-1]
         )
 

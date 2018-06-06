@@ -7,12 +7,18 @@
 
 import scrapy
 
+class TopicItem(scrapy.Item):
+	topicid = scrapy.Field()
+	title = scrapy.Field()
+	title_url = scrapy.Field()
+	content = scrapy.Field()
+	author_name = scrapy.Field()
+	author_url = scrapy.Field()
+	groupid = scrapy.Field()
+	
 
 
-
-class TopicItem(DjangoItem):
-	django_model = Topic
-
-
-class ImageItem(DjangoItem):
-	django_model = Image
+class ImageItem(scrapy.Item):
+    topicid = scrapy.Field()
+    image_url = scrapy.Field()
+    

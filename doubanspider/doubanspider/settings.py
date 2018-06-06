@@ -65,7 +65,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'doubanspider.pipelines.DownloadImagesPipeline': 300,
+   'doubanspider.pipelines.DownloadImagesPipeline': 330,
    'doubanspider.pipelines.DjangoPipeline': 310,
 }
 
@@ -92,4 +92,5 @@ ITEM_PIPELINES = {
 
 
 
-IMAGES_STORE = r'E:\work\spider\webui\media\doubangroup'
+IMAGES_STORE = r'D:\workspace\pythonwork\scrapywork\works\spider\media\doubanspider'
+SQLITE_FILE = r'D:\workspace\pythonwork\scrapywork\works\spider\webui\db.sqlite3'
