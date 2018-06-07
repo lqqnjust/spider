@@ -11,17 +11,16 @@ class GroupAdmin(admin.ModelAdmin):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ['topicid','title_link','author_link','visible']
-    list_editable = ['visible']
+    list_display = ['topicid','title_link','author_link']
+    
     list_display_links = None
-    list_filter = ['visible']
+    
     ordering = ('-id',)
     list_per_page = 20
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['topicid','image','topic','author','visible']
-    list_editable = ['visible']
-    list_filter = ['visible']
+    list_display = ['topicid','image','topic','author']
+    
     ordering = ('-id',)
     list_per_page = 10

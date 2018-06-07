@@ -12,7 +12,8 @@ class Project(models.Model):
     def __str__(self):
         return '{}({})'.format(self.name, self.version)
 
-    
+class Spider(models.Model):
+    name = models.CharField(max_length=20)
 
 class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

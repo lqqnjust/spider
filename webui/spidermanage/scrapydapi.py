@@ -18,13 +18,10 @@ def addversion( project_name, file_path):
         'version': int(time.time()),
         'egg': eggdata,
     })
-    print(response.status_code)
     if response.status_code == 200:
         data = response.json()
         if data['status'] == 'ok':
             return data['spiders']
-        else:
-            return data
     return None
 
 def schedule( project_name, spider_name, arguments):
@@ -56,11 +53,13 @@ def listprojects():
 
 def listspiders(project_name):
     resp = requests.get(SERVER_URL + "/listspiders.json?project=%s" % project_name)
-    print(resp.status_code)
     if resp.status_code == 200:
         data = resp.json()
+        print(data)
         if data['status'] == 'ok':
             return data['spiders']
+        else:
+            return 0
     return None
 
 
@@ -75,8 +74,11 @@ def listjobs(project_name):
     return None
 
 def main():
-    ret = addversion("doubanspider",'douban.egg')
-    print(ret)
+    # addversion('doubanspider','douban.egg')
+    print(listspiders('doubanspider'))
+    # print(schedule('doubanspider','doubangroup',{}))
+    # print(listjobs('doubanspider'))
+    # print(cancel('doubanspider','2f8188f669f011e887f7509a4c3a4459'))
 
 if __name__ == '__main__':
     main()

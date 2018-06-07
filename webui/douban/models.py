@@ -16,7 +16,7 @@ class Topic(models.Model):
     author_name = models.CharField(verbose_name=u'作者',max_length=50)
     author_url = models.CharField(verbose_name=u'主页',max_length=200)
     groupid = models.IntegerField(verbose_name=u'分组id',default=0)
-    visible = models.BooleanField(verbose_name=u'是否显示',default=True)
+    
 
     def title_link(self):
         return format_html(
@@ -36,7 +36,7 @@ class Topic(models.Model):
 class Image(models.Model):
     topicid = models.IntegerField(verbose_name=u'主题ID')
     image_url = models.CharField(verbose_name=u'图片地址',max_length=200,unique=True)
-    visible = models.BooleanField(verbose_name=u'是否显示',default=True)
+    
 
     def image(self):
         return format_html(
