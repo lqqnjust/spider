@@ -1,4 +1,6 @@
-from django.shortcuts import render
+import tempfile
+
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView
 
 from .models import Project, Task
@@ -6,7 +8,10 @@ from .models import Project, Task
 from .scrapydapi import *
 
 def index(request):
-    return render(request, 'spidermanage/index.html')
+    projects = Project.objects.all()
+    context = {}
+    context['projects'] = projects
+    return render(request, 'spidermanage/index.html',context)
 
 
 class ProjectView(ListView):
@@ -14,21 +19,67 @@ class ProjectView(ListView):
     context_object_name = 'projects'
     template_name = 'spidermanage/projects.html'
 
+def project(request, pk):
+    projects = Project.objects.all()
+    print(projects)
+    context = {}
+    context['projects'] = projects
+    project = Project.objects.get(id=pk)
+    context['project'] = project
+    
+    context['tasks'] =  Task.objects.all().filter(project=project.name)
 
-class ProjectDetail(DetailView):
-    model = Project
-    template_name = 'spidermanage/project.html'
-    context_object_name = 'project'
+    spiders = listspiders(project.name)
+    print(spiders)
+    context['spiders'] = spiders
 
-    def get_context_data(self, **kwargs):
-        # 覆写 get_context_data 的目的是因为除了将 post 传递给模板外（DetailView 已经帮我们完成），
-        # 还要把评论表单、post 下的评论列表传递给模板。
-        context = super(ProjectDetail, self).get_context_data(**kwargs)
+    jobs = Job.objects.all().filter(projectname=project.name)
+  
+
+    return render(request, 'spidermanage/project.html',context)
+
+
+def addNewProject(request):
+    if request.method == 'GET':
+        projects = Project.objects.all()
+        context = {}
+        context['projects'] = projects
+
+        return render(request, 'spidermanage/newproject.html', context )
+    else:
+        filedata = request.FILES['file']
+        projectname = request.POST['projectname']
+        project, created = Project.objects.get_or_create(name=projectname)
+        with open('douban.egg','wb') as f:
+            for chunk in filedata.chunks():
+                f.write(chunk)
         
-        tasks = Task.objects.filter(project__id=self.object.id)
-        context['tasks'] = tasks
+        addversion(projectname, "douban.egg")
+        return redirect("/spider/project/{}".format(project.id))
 
-        spiders = listspiders(self.object.name)
-        context['spiders'] = spiders
-        return context
+
+def addTask(request):
+    projectid = request.POST['projectid']
+    projectname = request.POST['project']
+    spidername = request.POST['spidername']
+    argument = request.POST['argument']
+    cron_expression = request.POST['cron_expression']
+
+    task = Task()
+    task.project = projectname
+    task.spidername = spidername
+    task.argument = argument
+    task.cron_expression = cron_expression
+    task.save()
+
+    return redirect('/spider/project/{}'.format(projectid))
+
+def delTask(request, pk):
+    task = Task.objects.get(id=pk)
+    projectname = task.project
+    task.delete()
+
+    project = Project.objects.get(name=projectname)
+
+    return redirect('/spider/project/{}'.format(project.id)) 
 

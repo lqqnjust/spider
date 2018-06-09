@@ -14,8 +14,7 @@
   <link rel="stylesheet" href="/static/AdminLTE/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/static/AdminLTE/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/static/AdminLTE/css/skins/_all-skins.min.css">
   {% block css  %} {% endblock  %}
 
@@ -34,7 +33,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>M</span>
       <!-- logo for regular state and mobile devices -->
@@ -66,21 +65,23 @@
           <a href="{% url 'index' %}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
+          
         </li>
-        <li class="">
-            <a href="{% url 'projects' %}">
-              <i class="fa fa-files-o"></i> <span>Projects</span>
-            </a>
-          </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
+            <i class="fa fa-files-o"></i> <span>Projects</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <ul class="treeview-menu">
+            {% for project in projects %}
+              <li><a href="{% url 'project' project.id %}"><i class="fa fa-circle-o"></i>{{ project.name }}</a></li>
+            {% endfor %}
+            <li><a href="{% url 'addproject'  %}"><i class="fa fa-circle-o"></i>Add New Project</a></li>
+          </ul>
         </li>
+        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -90,14 +91,14 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+      
         Dashboard
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
-      </ol>
+      </ol> 
     </section>
 
     <!-- Main content -->
@@ -132,7 +133,7 @@
 <!-- <script src="/static/AdminLTE/js/dashboard.js"></script> -->
 
 <!-- AdminLTE for demo purposes -->
-<script src="/static/AdminLTE/js/demo.js"></script> -->
+<script src="/static/AdminLTE/js/demo.js"></script>
 {% block script %}
 
 {% endblock %} 

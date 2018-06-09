@@ -2,113 +2,126 @@
 
 
 {% block content %}
-<div>
-  <h1>{{project.name }} - <span>{{project.version}}</span></h1>
+
+<div class="row">
+  <div class="box">
+    <div class="content-header">
+      <h1 class="box-title">{{project.name}}</h1>
+      <ol style="float: right;"><button class="btn btn-default" data-toggle="modal" data-target="#modal-add">Add Task</button></ol>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <table class="table table-bordered">
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Task</th>
+          <th>Expression</th>
+          <th>Create Time</th>
+          <th>Label</th>
+          <th>Action</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{task.spidername}}</td>
+          <td>{{task.cron_expression}}</td>
+          <td>{{task.createtime}}</td>
+          <td><span class="badge bg-red">55%</span></td>
+          <td><a href="{% url 'deltask' task.id %}" class="btn btn-danger" >删除</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <!-- /.box-body -->
+    
+  </div>
+  <!-- /.box -->
 </div>
-<div><button class='layui-btn' id="addtask">添加任务</button></div>
-<table class="layui-table">
-  <colgroup>
-    <col width="150">
-    <col width="200">
-    <col>
-  </colgroup>
-  <thead>
-    <tr>
-      <th>名称</th>
-      <th>表达式</th>
-      <th>创建时间</th>
-      <th>更新时间</th>
-      <th>是否启用</th>
-    </tr> 
-  </thead>
-  <tbody>
-  {% for task in tasks %}
-    <tr>
-      <td>{{task.spidername}}</td>
-      <td>{{task.cron_expression}}</td>
-      <td>{{task.createtime}}</td>
-      <td>{{task.updatetime}}</td>
-      <td>{{task.enable}}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
 
-
-
-
-{% for spider in spiders %}
-  <div>{{spider}}</div>
-{% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-<div id="add">
-  <div  class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
-    <div class="layui-form-item">
-      <label class="layui-form-label">输入框</label>
-      <div class="layui-input-block">
-        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+<!--显示pendding job状态-->
+<div class="row">
+    <div class="box">
+      <div class="content-header">
+        <h3 class="box-title">Pendding</h3>
       </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">下拉选择框</label>
-      <div class="layui-input-block">
-        <select name="interest" lay-filter="aihao">
-          <option value="0">写作</option>
-          <option value="1">阅读</option>
-        </select>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>JobID</th>
+            <th>Task Name</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+          {% for task in tasks %}
+          <tr>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
+      <!-- /.box-body -->
     </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">复选框</label>
-      <div class="layui-input-block">
-        <input type="checkbox" name="like[write]" title="写作">
-        <input type="checkbox" name="like[read]" title="阅读">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">开关关</label>
-      <div class="layui-input-block">
-        <input type="checkbox" lay-skin="switch">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">开关开</label>
-      <div class="layui-input-block">
-        <input type="checkbox" checked lay-skin="switch">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">单选框</label>
-      <div class="layui-input-block">
-        <input type="radio" name="sex" value="0" title="男">
-        <input type="radio" name="sex" value="1" title="女" checked>
-      </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-      <label class="layui-form-label">请填写描述</label>
-      <div class="layui-input-block">
-        <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      </div>
-    </div>
-    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+    <!-- /.box -->
   </div>
+
+
+
+
+<!-- 创建弹出界面-->
+<div class="modal fade" id="modal-add">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add New Task</h4>
+      </div>
+      <form role="form" action="{% url 'addtask'  %}" method="POST">
+        {% csrf_token %}
+        <input name="project" value="{{project.name}}" class="hidden"/>
+        <input name="projectid" value="{{project.id}}" class="hidden"/>
+      <div class="modal-body">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="spidername">Spider Name</label>
+              <select class="form-control" name="spidername">
+                {% for spider in spiders %}
+                <option value="{{spider}}">{{spider}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cron_expression">Cron Expression</label>
+              <input type="text" class="form-control" id="" name="cron_expression" placeholder="*　　*　　*　　*　　*代表分时日月周">
+            </div>
+            <div class="form-group">
+                <label for="arguments">Arguments</label>
+                <input type="text" class="form-control" id="" name="argument" placeholder="k1=v1,k2=v2格式">
+              </div>
+          </div>
+          <!-- /.box-body -->
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
   </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
+
+
+
+
 
 
 
@@ -117,23 +130,6 @@
 
 {% block script %}
 
-<script>
-  layui.use('layer', function(){
-    var $ = layui.jquery;
-    $("#addtask").on('click',function(){
-      
-      var layer = layui.layer;
-  
-      layer.open({
-        type: 1,
-        content: $("#add")
-      });    
-    });
-    
-
-
-  });  
-</script>
 {% endblock %} 
 
 {% block outblock %}

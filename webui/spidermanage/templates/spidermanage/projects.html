@@ -16,24 +16,18 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>项目名</th>
-            <th>版本号</th>
+           
             <th>创建时间</th>
-            <th>状态</th>
+            
             <th>操作</th>
           </tr>
           {% for project in projects %}
           <tr>
             <td>{{ forloop.counter }}</td>
             <td><a href="{% url 'project' project.id %}">{{ project.name }}</a></td>
-            <td>{{ project.version }}</td>
+            
             <td>{{ project.createtime }}</td>
-            <td>
-              {% if project.deployed is True %}
-                <span class="label label-success">已部署</span>
-              {% else%}
-                <span class="label label-warning">未部署</span>
-              {%endif%}
-            </td>
+            
             <td>
               <button data-projectid='{{project.id}}' type="button" class="btn btn-danger btn-sm">删除</button>
             </td>
