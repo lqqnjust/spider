@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'spiderkeeper.apps.SpiderkeeperConfig',
     'spidermanage.apps.SpidermanageConfig',
-    'douban.apps.DoubanConfig'
+    'douban.apps.DoubanConfig',
+    'scrapydm.apps.ScrapydmConfig'
 ]
 
 MIDDLEWARE = [
@@ -125,7 +126,7 @@ STATIC_URL = '/static/'
 
 APPEND_SLASH=False
 
-MEDIA_ROOT =r'E:\work\spider\webui\media'
+MEDIA_ROOT =r'D:\workspace\pythonwork\scrapywork\works\spider\webui\media'
 MEDIA_URL = '/media/'
 
 

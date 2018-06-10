@@ -12,6 +12,13 @@ from scrapy import log
 
 class GroupSpider(scrapy.Spider):
     name = "doubangroup"
+    start_urls = [
+        "https://www.douban.com/group/606392/discussion?start=0",
+        "https://www.douban.com/group/505473/discussion?start=0",
+        "https://www.douban.com/group/haixiuzu/discussion?start=0",
+        "https://www.douban.com/group/cup/discussion?start=0",
+        "https://www.douban.com/group/haixiuzu/discussion?start=30"
+    ]
 
     def start_requests(self):
         # groups = Group.objects.filter(enable=True)
