@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-
+from .scrapydapi import *
+from django.conf import settings
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
@@ -16,6 +17,16 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
         print(self.eggfile)
+        addversion(self.name, settings.MEDIA_ROOT + "/"+self.eggfile.name)
+
+        spiders = listspiders(self.name)
+        Spider.objects.all().filter(project=self).delete()
+        for spider in spiders:
+            sp = Spider()
+            sp.name = spider
+            sp.project = self
+            sp.save()
+
 
 
 class Spider(models.Model):
@@ -34,9 +45,9 @@ class Task(models.Model):
     )
     name = models.CharField(max_length=100)
     spider = models.ForeignKey(Spider, on_delete=models.CASCADE)
-    remark = models.TextField()
-    argument = models.TextField()
-    expression = models.TextField(max_length=200)
+    remark = models.TextField(null=True,blank=True)
+    argument = models.TextField(null=True,blank=True)
+    expression = models.TextField(max_length=200,blank=True)
     type = models.IntegerField(choices=SCHEDULER_TYPE)
     createtime = models.DateTimeField(auto_now_add=True)
     updatetime = models.DateTimeField(auto_now=True)
