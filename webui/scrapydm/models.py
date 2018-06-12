@@ -51,6 +51,7 @@ class Task(models.Model):
     type = models.IntegerField(choices=SCHEDULER_TYPE)
     createtime = models.DateTimeField(auto_now_add=True)
     updatetime = models.DateTimeField(auto_now=True)
+    enable = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

@@ -24,7 +24,8 @@ class TaskAdmin(admin.ModelAdmin):
             job.jobid = jobid
             job.task = task
             job.save()
-    run_once.short_description = "Run Once"
+        self.message_user(request, "%d 个任务已启动" % len(queryset))
+    run_once.short_description = "立即执行"
 
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
