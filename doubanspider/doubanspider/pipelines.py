@@ -53,9 +53,11 @@ class DjangoPipeline(object):
         logging.info("sql:"+sql)
         logging.info("items:"+str(item))
         logging.info("keys:"+str(item.fields.keys()))
-        self.cur.execute(sql,[item[x] for x in item.fields.keys()])
-        self.conn.commit()
-   
+        try:
+            self.cur.execute(sql,[item[x] for x in item.fields.keys()])
+            self.conn.commit()
+        except sqlite3.IntegrityError:
+            pass
 
         return item
 
