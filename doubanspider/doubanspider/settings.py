@@ -92,5 +92,5 @@ ITEM_PIPELINES = {
 
 
 
-IMAGES_STORE = r'E:\work\spider\webui\media\doubanspider'
-SQLITE_FILE = r'E:\work\spider\webui\db.sqlite3'
+IMAGES_STORE = r'D:\workspace\pythonwork\scrapywork\works\spider\webui\media\doubanspider'
+SQLITE_FILE = r'D:\workspace\pythonwork\scrapywork\works\spider\webui\db.sqlite3'

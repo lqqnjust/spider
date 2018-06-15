@@ -17,7 +17,7 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
         print(self.eggfile)
-        addversion(self.name, settings.MEDIA_ROOT + "/"+self.eggfile.name)
+        addversion(self.name,self.version, settings.MEDIA_ROOT + "/"+self.eggfile.name)
 
         spiders = listspiders(self.name)
         Spider.objects.all().filter(project=self).delete()

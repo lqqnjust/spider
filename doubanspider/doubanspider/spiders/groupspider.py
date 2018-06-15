@@ -5,27 +5,33 @@ from doubanspider.items import TopicItem, ImageItem
 
 import re
 from scrapy.http import Request
-
+from scrapy.utils.project import get_project_settings
 
 from scrapy import log
-
+import sqlite3
 
 class GroupSpider(scrapy.Spider):
     name = "doubangroup"
-    start_urls = [
-        "https://www.douban.com/group/606392/discussion?start=0",
-        "https://www.douban.com/group/505473/discussion?start=0",
-        "https://www.douban.com/group/haixiuzu/discussion?start=0",
-        "https://www.douban.com/group/cup/discussion?start=0",
-        "https://www.douban.com/group/haixiuzu/discussion?start=30"
-    ]
+
 
     def start_requests(self):
         # groups = Group.objects.filter(enable=True)
         # for group in groups:
         #     yield self.make_requests_from_url(group.grouplink)
-        url = 'https://www.douban.com/group/haixiuzu/discussion?start=0'
-        yield self.make_requests_from_url(url)
+        settings = get_project_settings()
+        sqlite_file = settings.get('SQLITE_FILE')
+        conn = sqlite3.connect(sqlite_file)
+        cur = conn.cursor()
+        sql = "select grouplink, max_page from douban_group where enable=1"
+        cur.execute(sql)
+        records = cur.fetchall()
+        for record in records:
+            grouplink = record[0]
+            max_page  = record[1]
+            for x in range(max_page):
+                url = "%s/discussion?start=%d" %(grouplink, x*25)
+                yield self.make_requests_from_url(url)
+        cur.close()
 
     def parse(self, response):
         for sel in response.xpath('//tr[@class=""]'):

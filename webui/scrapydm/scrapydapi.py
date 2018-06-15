@@ -10,12 +10,12 @@ try:
 except:
     SERVER_URL = "http://localhost:6800"
 
-def addversion( project_name, file_path):
+def addversion( project_name,version, file_path):
     with open(file_path, 'rb') as f:
         eggdata = f.read()
     response = requests.post(SERVER_URL + '/addversion.json', data={
         'project': project_name,
-        'version': int(time.time()),
+        'version': version,
         'egg': eggdata,
     })
     if response.status_code == 200:
