@@ -7,7 +7,7 @@ import re
 from scrapy.http import Request
 from scrapy.utils.project import get_project_settings
 
-from scrapy import log
+import logging
 import sqlite3
 
 class GroupSpider(scrapy.Spider):
@@ -30,6 +30,7 @@ class GroupSpider(scrapy.Spider):
             max_page  = record[1]
             for x in range(max_page):
                 url = "%s/discussion?start=%d" %(grouplink, x*25)
+                logging.info("url")
                 yield self.make_requests_from_url(url)
         cur.close()
 
