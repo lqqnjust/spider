@@ -25,4 +25,5 @@ urlpatterns = [
 
 
 
-import scrapydm.schedulers
+from scrapydm.schedulers import init
+init()

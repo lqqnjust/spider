@@ -83,7 +83,7 @@ def listjobs(project_name):
         if data['status'] == 'ok':
             return (data['pending'], data['running'], data['finished'])
         else:
-            return data
+            return None
     return None
 
 def main():

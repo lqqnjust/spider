@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from .scrapydapi import *
+from .scrapydapi import listspiders, addversion
 from django.conf import settings
 
 class Project(models.Model):
