@@ -92,5 +92,5 @@ ITEM_PIPELINES = {
 
 
 
-IMAGES_STORE = r'E:\work\spider\webui\media\doubanspider'
-SQLITE_FILE = r'E:\work\spider\webui\db.sqlite3'
+IMAGES_STORE = r'/home/ubuntu/qq/work3env/spider/webui/media/doubanspider'
+SQLITE_FILE = r'/home/ubuntu/qq/work3env/spider/webui/db.sqlite3'
