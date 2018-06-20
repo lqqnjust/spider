@@ -20,8 +20,13 @@ class Project(models.Model):
         addversion(self.name,self.version, settings.MEDIA_ROOT + "/"+self.eggfile.name)
 
         spiders = listspiders(self.name)
-        Spider.objects.all().filter(project=self).delete()
+        spidermodels = Spider.objects.all().filter(project=self)
+        spidernamesinmodel = [ x.name for x in spidermodels]
+        need = []
         for spider in spiders:
+            if spider not in spidernamesinmodel:
+                need.append(spider)
+        for spider in need:
             sp = Spider()
             sp.name = spider
             sp.project = self
