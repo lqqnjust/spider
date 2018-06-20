@@ -3,6 +3,7 @@ from .scrapydapi import listjobs, listspiders
 
 import logging
 import datetime
+from django.utils import timezone
 
 def sync_job_execution_status_job():
     '''
@@ -28,7 +29,7 @@ def sync_job_execution_status_job():
                 try:
                     job = Job.objects.get(jobid=id)
                     job.status = "running"
-                    start_datetime = datetime.datetime.strptime(start_time[:18],'%Y-%m-%d %H:%M:%S')
+                    start_datetime = timezone.datetime.strptime(start_time[:18],'%Y-%m-%d %H:%M:%S')
                     job.starttime = start_datetime
                     job.save()
                 except:
@@ -40,8 +41,8 @@ def sync_job_execution_status_job():
                 try:
                     job = Job.objects.get(jobid=id)
                     job.status = "finished"
-                    start_datetime = datetime.datetime.strptime(start_time[:18],'%Y-%m-%d %H:%M:%S')
-                    end_datetime = datetime.datetime.strptime(end_time[:18],'%Y-%m-%d %H:%M:%S')
+                    start_datetime = timezone.datetime.strptime(start_time[:18],'%Y-%m-%d %H:%M:%S')
+                    end_datetime = timezone.datetime.strptime(end_time[:18],'%Y-%m-%d %H:%M:%S')
                     job.starttime = start_datetime
                     job.endtime = end_time
                     job.save()
